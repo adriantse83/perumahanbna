@@ -455,26 +455,31 @@ function reset(e){
 // Event Layer
 // =========================
 
-function onEachDusun(feature,layer){
+function onEachDusun(feature, layer){
 
     layer.on({
 
-        mouseover:highlight,
+        mouseover: highlight,
 
-        mouseout:reset,
+        mouseout: reset,
 
         click:function(e){
 
             showDusunInfo(feature);
 
-            map.fitBounds(layer.getBounds());
+            map.flyTo(
+                layer.getBounds().getCenter(),
+                Math.max(map.getZoom(),16),
+                {
+                    duration:0.5
+                }
+            );
 
         }
 
     });
 
 }
-
 
 // =========================
 // Load GeoJSON Dusun
